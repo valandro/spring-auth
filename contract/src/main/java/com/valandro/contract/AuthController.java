@@ -1,6 +1,6 @@
 package com.valandro.contract;
 
-import com.valandro.contract.facade.Facade;
+import com.valandro.contract.facade.AuthFacade;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
     @Autowired
-    private Facade facade;
+    private AuthFacade authFacade;
 
     @PostMapping(path = "/auth",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public AuthResponse authenticate(@RequestBody AuthRequest request){
-        return AuthResponse.builder()
-                .token("AAA")
-                .build();
+        return authFacade.login(request);
     }
 }
