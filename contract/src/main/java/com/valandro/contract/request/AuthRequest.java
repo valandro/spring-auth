@@ -1,4 +1,4 @@
-package contract.response;
+package com.valandro.contract.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ResponseModel {
-    private String token;
+@NoArgsConstructor
+public class AuthRequest {
+    private String username;
+    private String password;
 }

@@ -1,6 +1,6 @@
-package impl.repository;
+package com.valandro.impl.repository;
 
-import impl.model.UserEntity;
+import com.valandro.impl.model.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,12 @@
-package impl.model;
+package com.valandro.impl.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+
 
 @Data
 @Builder
