@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan(basePackages = {"com.valandro.contract", "com.valandro.impl"})
-@EntityScan(basePackages = "com.valandro.impl.model")
+@EntityScan(basePackages = "com.valandro.impl.data")
 @EnableJpaRepositories(basePackages = "com.valandro.impl.repository")
 @SpringBootApplication
 public class Application {
