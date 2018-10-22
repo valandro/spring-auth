@@ -5,7 +5,7 @@ import com.valandro.contract.exception.ApiException;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.model.ImplRequest;
-import com.valandro.impl.model.UserModel;
+import com.valandro.impl.model.AuthModel;
 import com.valandro.impl.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class AuthFacade {
 
     public AuthResponse login(AuthRequest request) {
         ImplRequest implRequest = AuthContractBinder.authRequestBinder(request);
-        UserModel response = this.authService.findUser(implRequest)
+        AuthModel response = this.authService.findUser(implRequest)
                                 .orElseThrow(()-> {
                                     throw new ApiException(
                                             HttpStatus.BAD_REQUEST,

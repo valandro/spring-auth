@@ -3,12 +3,12 @@ package com.valandro.contract.binder;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.model.ImplRequest;
-import com.valandro.impl.model.UserModel;
+import com.valandro.impl.model.AuthModel;
 
 public class AuthContractBinder {
-    public static AuthResponse authResponseBinder(UserModel entity){
+    public static AuthResponse authResponseBinder(AuthModel entity){
         return AuthResponse.builder()
-                .token("Fixed token")
+                .token(entity.getToken())
                 .name(entity.getName())
                 .accessLevel(entity.getAccessLevel())
                 .build();
