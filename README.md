@@ -1,6 +1,10 @@
 # Java Spring Data
-This project consists in a Authentication Service.
- ### Dependencies
+[![Build Status](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)
+
+This project consists in a Authentication Service, using Jwts for generate JSON Web Token.
+
+
+### Dependencies
  - Java     10.0.2
  - Gradle   4.3
  - Spring Web
