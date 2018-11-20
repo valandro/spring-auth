@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -32,16 +33,10 @@ public class AuthService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public Optional<AuthModel> findUser(ImplRequest request){
-        UserEntity entity = this.findUserByNameAndPassword(request);
-        ImplModel implModel = AuthImplBinder.bindToImplModel(entity);
-        return this.createAuthModel(implModel);
-    }
-
-    private Optional<AuthModel> createAuthModel(ImplModel implModel){
+    public AuthModel createAuthModel(ImplModel implModel){
         try {
             String token = this.generateToken(implModel);
-            return Optional.ofNullable(AuthImplBinder.bindToAuthModel(implModel, token));
+            return AuthImplBinder.bindToAuthModel(implModel, token);
         } catch (JsonProcessingException e) {
             throw new ImplException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
@@ -56,10 +51,10 @@ public class AuthService {
                    .compact();
     }
 
-    private UserEntity findUserByNameAndPassword(ImplRequest request) {
-        return this.userRepository.
-                findByNameAndPassword(
-                        request.getUsername(),
-                        request.getPassword());
+    public Optional<UserEntity> findUserByNameAndPassword(ImplRequest request) {
+        return Optional.ofNullable(
+                this.userRepository
+                        .findByNameAndPassword(request.getUsername(),request.getPassword()));
+
     }
 }

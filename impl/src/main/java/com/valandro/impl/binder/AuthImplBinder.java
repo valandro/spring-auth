@@ -6,7 +6,6 @@ import com.valandro.impl.model.ImplModel;
 
 public class AuthImplBinder {
     public static AuthModel bindToAuthModel(ImplModel implModel, String token){
-        if(implModel == null) return null;
         return AuthModel.builder()
                 .token(token)
                 .clientId(implModel.getClientId())
@@ -17,7 +16,6 @@ public class AuthImplBinder {
     }
 
     public static ImplModel bindToImplModel(UserEntity entity) {
-        if(entity == null) return null;
         return ImplModel.builder()
                 .name(entity.getName())
                 .clientId(entity.getClientId())

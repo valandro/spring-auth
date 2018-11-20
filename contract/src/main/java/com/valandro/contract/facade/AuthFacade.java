@@ -4,26 +4,35 @@ import com.valandro.contract.binder.AuthContractBinder;
 import com.valandro.contract.exception.ApiException;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
+import com.valandro.impl.binder.AuthImplBinder;
+import com.valandro.impl.data.UserEntity;
 import com.valandro.impl.model.ImplRequest;
-import com.valandro.impl.model.AuthModel;
 import com.valandro.impl.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @Component
 public class AuthFacade {
     @Autowired
     private AuthService authService;
 
-    public AuthResponse login(AuthRequest request) {
-        ImplRequest implRequest = AuthContractBinder.authRequestBinder(request);
-        AuthModel response = this.authService.findUser(implRequest)
-                                .orElseThrow(()-> {
-                                    throw new ApiException(
-                                            HttpStatus.BAD_REQUEST,
-                                            "Usuário não encontrado.");
-                                });
-        return AuthContractBinder.authResponseBinder(response);
+    public Mono<AuthResponse> login(AuthRequest request) {
+        return Mono.just(request)
+                .map(AuthContractBinder::authRequestBinder)
+                .map(this::findUserByNameAndPassword)
+                .map(AuthImplBinder::bindToImplModel)
+                .map(this.authService::createAuthModel)
+                .map(AuthContractBinder::authResponseBinder);
+    }
+
+    private UserEntity findUserByNameAndPassword(ImplRequest request) {
+        return this.authService.findUserByNameAndPassword(request)
+                .orElseThrow(() -> {
+                    throw new ApiException(HttpStatus.BAD_REQUEST, "Usuário não encontrado.");
+                });
     }
 }
