@@ -19,6 +19,7 @@ public class AuthController {
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<AuthResponse> authenticate(@RequestBody AuthRequest request){
+
         return authFacade.login(request);
     }
 }
