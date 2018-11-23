@@ -15,6 +15,10 @@ allprojects {
     group 'com.valandro'
     version '1.0'
 
+    ext {
+        jacocoVersion = '0.7.5.201505241946'
+    }
+
     sourceCompatibility = JavaVersion.VERSION_1_10
     targetCompatibility = JavaVersion.VERSION_1_10
 
@@ -44,3 +48,15 @@ allprojects {
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
+jacoco {
+    toolVersion = jacocoVersion
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled  true
+        xml.enabled  true
+        csv.enabled  true
+    }
+}
+test.finalizedBy jacocoTestReport
