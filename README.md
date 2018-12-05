@@ -1,5 +1,6 @@
 # Java Spring Data
 [![Build Status](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)
+[![codecov](https://codecov.io/gh/valandro/java-auth-spring/branch/master/graph/badge.svg)](https://codecov.io/gh/valandro/java-auth-spring)
 
 This project consists in a Authentication Service, using Jwts for generate JSON Web Token.
 
@@ -7,6 +8,7 @@ This project consists in a Authentication Service, using Jwts for generate JSON 
 ### Dependencies
  - Java     10.0.2
  - Gradle   4.3
+ - Junit    5
  - Spring Web
  - Spring Web Flux
  - Spring Data JPA
