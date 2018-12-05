@@ -17,6 +17,7 @@ allprojects {
 
     group 'com.valandro'
     version '1.0'
+    mainClassName = 'com.springdatajpa.sprindatajpa'
 
     ext {
         jacocoVersion = '0.7.5.201505241946'
