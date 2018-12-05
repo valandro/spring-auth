@@ -19,7 +19,7 @@ allprojects {
     version '1.0'
 
     ext {
-        jacocoVersion = '0.8.3.201811301251'
+        jacocoVersion = '0.7.5.201505241946'
     }
 
     sourceCompatibility = JavaVersion.VERSION_1_10
