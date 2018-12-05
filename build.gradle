@@ -53,7 +53,7 @@ allprojects {
 jacocoTestReport {
     additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
     reports {
-        xml.enabled false
+        xml.enabled true
         csv.enabled false
         html.destination "${buildDir}/reports/jacoco/html"
     }
