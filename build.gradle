@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'jacoco'
     id 'org.springframework.boot' version '2.0.4.RELEASE'
 }
@@ -11,13 +12,14 @@ dependencies {
 allprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
+    apply plugin: 'application'
     apply plugin: 'io.spring.dependency-management'
 
     group 'com.valandro'
     version '1.0'
 
     ext {
-        jacocoVersion = '0.7.5.201505241946'
+        jacocoVersion = '0.8.3.201811301251'
     }
 
     sourceCompatibility = JavaVersion.VERSION_1_10
@@ -48,14 +50,29 @@ allprojects {
         compile('javax.activation:activation:1.1.1')
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
+
+    subprojects {
+        sourceCompatibility = JavaVersion.VERSION_1_10
+        targetCompatibility = JavaVersion.VERSION_1_10
+    }
 }
 
-jacocoTestReport {
-    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
     reports {
         xml.enabled true
-        csv.enabled false
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        html.enabled true
         html.destination "${buildDir}/reports/jacoco/html"
+        csv.enabled false
     }
-    executionData = files('build/jacoco/test.exec')
+}
+
+codeCoverageReport.dependsOn {
+    subprojects*.test
 }

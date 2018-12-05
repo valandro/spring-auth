@@ -11,5 +11,5 @@ env:
   global:
   - CODECOV_TOKEN="a1f5ebfc-f21f-47cf-a7e2-dc73eb77a8c1"
 after_success:
-  - ./gradlew jacocoTestReport
+  - ./gradlew codeCoverageReport
   - bash <(curl -s https://codecov.io/bash)

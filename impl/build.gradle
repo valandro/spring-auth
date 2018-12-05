@@ -1,4 +1,5 @@
 apply plugin:'java'
+apply plugin: 'jacoco'
 
 dependencies {
     // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
