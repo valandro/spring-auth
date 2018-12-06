@@ -1,7 +1,6 @@
 package com.valandro.contract.binder;
 
 import com.valandro.contract.request.AuthRequest;
-import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.model.AuthModel;
 import com.valandro.impl.model.ImplRequest;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class AuthContractBinderTest {
     @Test
     public void authResponseBinder() {
         AuthModel model = validModel();
-        AuthResponse result = AuthContractBinder.authResponseBinder(model);
+        com.valandro.contract.response.AuthResponse result = AuthContractBinder.authResponseBinder(model);
         assertEquals(result.getName(),model.getName());
         assertEquals(result.getAccessLevel(),model.getAccessLevel());
         assertEquals(result.getToken(),model.getToken());
