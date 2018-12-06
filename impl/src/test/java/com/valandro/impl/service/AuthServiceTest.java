@@ -1,7 +1,8 @@
 package com.valandro.impl.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valandro.impl.data.UserEntity;
+import com.valandro.impl.model.AuthModel;
+import com.valandro.impl.model.ImplModel;
 import com.valandro.impl.model.ImplRequest;
 import com.valandro.impl.repository.UserRepository;
 import com.valandro.impl.stub.ImplStub;
@@ -9,8 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
@@ -22,18 +23,29 @@ import static org.mockito.Mockito.doReturn;
 @RunWith(MockitoJUnitRunner.class)
 public class AuthServiceTest {
 
+    @Spy
     @InjectMocks
     private AuthService authService;
 
     @Mock
     private UserRepository userRepository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     public void create_auth_model() {
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+        ImplModel model = ImplStub.validImplModel();
 
+        doReturn(token)
+                .when(this.authService)
+                .generateToken(eq(model));
+
+        AuthModel result = this.authService.createAuthModel(model);
+
+        assertEquals(result.getName(), model.getName());
+        assertEquals(result.getClientId(), model.getClientId());
+        assertEquals(result.getAccessLevel(), model.getAccessLevel());
+        assertEquals(result.getBlocked(), model.getBlocked());
+        assertEquals(result.getToken(), token);
     }
 
     @Test

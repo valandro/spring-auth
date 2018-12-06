@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -34,15 +33,18 @@ public class AuthService {
     private ObjectMapper objectMapper;
 
     public AuthModel createAuthModel(ImplModel implModel){
+        return AuthImplBinder.bindToAuthModel(implModel, this.generateToken(implModel));
+    }
+
+    public String generateToken(ImplModel implModel) {
         try {
-            String token = this.generateToken(implModel);
-            return AuthImplBinder.bindToAuthModel(implModel, token);
+            return this.createToken(implModel);
         } catch (JsonProcessingException e) {
             throw new ImplException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
-    private String generateToken(ImplModel authModel) throws JsonProcessingException {
+    private String createToken(ImplModel authModel) throws JsonProcessingException {
         Date expiration = Date.from(ZonedDateTime.now(ZoneOffset.UTC).plusHours(this.sessionTime).toInstant());
         return Jwts.builder()
                    .setSubject(this.objectMapper.writeValueAsString(authModel))
