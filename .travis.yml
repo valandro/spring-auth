@@ -1,6 +1,8 @@
 language: java
 jdk:
 - openjdk10
+install:
+- true
 matrix:
   include:
   - jdk: openjdk10
