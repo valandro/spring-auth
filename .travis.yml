@@ -11,7 +11,7 @@ matrix:
 install:
 - true
 script:
-- "./gradlew --no-daemon --stacktrace -Pcoverage checkstyle check build"
+- "./gradlew --no-daemon --stacktrace check build"
 before_install:
 - chmod +x gradlew
 after_success:
