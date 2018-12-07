@@ -3,6 +3,7 @@ package com.valandro.contract.facade;
 import com.valandro.contract.binder.AuthContractBinder;
 import com.valandro.contract.exception.ApiException;
 import com.valandro.contract.request.AuthRequest;
+import com.valandro.contract.response.AuthResponse;
 import com.valandro.contract.stub.ContractStub;
 import com.valandro.impl.binder.AuthImplBinder;
 import com.valandro.impl.data.UserEntity;
@@ -53,9 +54,9 @@ public class AuthFacadeTest {
                 .when(this.authService)
                 .createAuthModel(eq(implModel));
 
-        Mono<com.valandro.contract.response.AuthResponse> result = this.facade.login(request);
+        Mono<AuthResponse> result = this.facade.login(request);
 
-        com.valandro.contract.response.AuthResponse response = result.block();
+        AuthResponse response = result.block();
 
         assertEquals(response.getToken(), token);
         assertEquals(response.getAccessLevel(), authModel.getAccessLevel());
@@ -70,6 +71,6 @@ public class AuthFacadeTest {
                 .when(this.authService)
                 .findUserByNameAndPassword(eq(AuthContractBinder.authRequestBinder(request)));
 
-        com.valandro.contract.response.AuthResponse result = this.facade.login(request).block();
+        AuthResponse result = this.facade.login(request).block();
     }
 }

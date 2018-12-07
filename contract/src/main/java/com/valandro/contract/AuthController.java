@@ -2,6 +2,7 @@ package com.valandro.contract;
 
 import com.valandro.contract.facade.AuthFacade;
 import com.valandro.contract.request.AuthRequest;
+import com.valandro.contract.response.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +18,7 @@ public class AuthController {
     @PostMapping(path = "/auth",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<com.valandro.contract.response.AuthResponse> authenticate(@RequestBody AuthRequest request){
-
+    public Mono<AuthResponse> authenticate(@RequestBody AuthRequest request){
         return authFacade.login(request);
     }
 }

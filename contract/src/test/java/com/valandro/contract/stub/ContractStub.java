@@ -1,6 +1,7 @@
 package com.valandro.contract.stub;
 
 import com.valandro.contract.request.AuthRequest;
+import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.data.UserEntity;
 
 public class ContractStub {
@@ -22,7 +23,15 @@ public class ContractStub {
                 .build();
     }
 
-    public static UserEntity notFoundEntity(){
+    public static UserEntity notFoundEntity() {
         return null;
+    }
+
+    public static AuthResponse getValidResponse() {
+        return AuthResponse.builder()
+                .name("Nome")
+                .accessLevel(1)
+                .token("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+                .build();
     }
 }

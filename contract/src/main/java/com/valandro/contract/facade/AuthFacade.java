@@ -3,6 +3,7 @@ package com.valandro.contract.facade;
 import com.valandro.contract.binder.AuthContractBinder;
 import com.valandro.contract.exception.ApiException;
 import com.valandro.contract.request.AuthRequest;
+import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.binder.AuthImplBinder;
 import com.valandro.impl.data.UserEntity;
 import com.valandro.impl.model.ImplRequest;
@@ -17,7 +18,7 @@ public class AuthFacade {
     @Autowired
     private AuthService authService;
 
-    public Mono<com.valandro.contract.response.AuthResponse> login(AuthRequest request) {
+    public Mono<AuthResponse> login(AuthRequest request) {
         return Mono.just(request)
                 .map(AuthContractBinder::authRequestBinder)
                 .map(this::findUserByNameAndPassword)

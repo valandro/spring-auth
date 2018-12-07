@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'jacoco'
-    id 'org.springframework.boot' version '2.0.4.RELEASE'
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
 }
 
 dependencies {
@@ -42,7 +42,6 @@ allprojects {
     }
 
     dependencies {
-        compile('org.springframework.boot:spring-boot-starter-web')
         compile("org.springframework.boot:spring-boot-starter-webflux")
         compileOnly("org.projectlombok:lombok:1.18.0")
         compile('javax.xml.bind:jaxb-api:2.3.0')
