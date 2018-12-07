@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -25,6 +26,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 
@@ -47,9 +49,8 @@ public class AuthControllerTest {
         webTestClient = WebTestClient.bindToApplicationContext(applicationContext).build();
     }
 
-    @Ignore
     @Test
-    public void authenticate_success() throws Exception {
+    public void authenticate_success() {
         AuthRequest request = ContractStub.getValidRequest();
         AuthResponse response = ContractStub.getValidResponse();
         UserEntity entity = ContractStub.validEntity();
@@ -83,7 +84,40 @@ public class AuthControllerTest {
                 .jsonPath("$.user_name").isEqualTo(response.getName())
                 .jsonPath("$.token").isEqualTo(response.getToken())
                 .jsonPath("$.access_level").isEqualTo(response.getAccessLevel());
+    }
 
+    @Test
+    public void authenticate_not_found() {
+        AuthRequest request = ContractStub.getValidRequest();
+        UserEntity entity = ContractStub.validEntity();
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 
+        doReturn(Optional.empty())
+                .when(this.service)
+                .findUserByNameAndPassword(eq(AuthContractBinder.authRequestBinder(request)));
+
+        ImplModel implModel = AuthImplBinder.bindToImplModel(entity);
+
+        doReturn(token)
+                .when(this.service)
+                .generateToken(eq(implModel));
+
+        AuthModel authModel = AuthImplBinder.bindToAuthModel(implModel, this.service.generateToken(implModel));
+
+        doReturn(authModel)
+                .when(this.service)
+                .createAuthModel(eq(implModel));
+
+        this.webTestClient
+                .post()
+                .uri("/auth")
+                .contentType(MediaType.APPLICATION_JSON)
+                .syncBody(request)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody()
+                .jsonPath("$.httpStatus").isEqualTo(HttpStatus.BAD_REQUEST.value())
+                .jsonPath("$.message").isEqualTo("Usuário não encontrado.");
     }
 }
