@@ -24,7 +24,6 @@ public class ImplExceptionTest {
     @Test
     public void test_constructor_with_args(){
         String message = "Bad Request";
-        exception = new ImplException();
         exception.setHttpStatus(HttpStatus.BAD_REQUEST);
         exception.setMessage(message);
         assertEquals(HttpStatus.BAD_REQUEST, exception.getHttpStatus());
