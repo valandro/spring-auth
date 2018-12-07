@@ -1,15 +1,17 @@
 language: java
 jdk:
 - openjdk10
-sudo: true
+sudo: false
 matrix:
   include:
   - jdk: openjdk10
     before_install:
     - rm "${JAVA_HOME}/lib/security/cacerts"
     - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
+install:
+- true
 script:
-  - ./gradlew check --refresh-dependencies
+- "./gradlew --no-daemon --stacktrace -Pcoverage checkstyle check build"
 before_install:
 - chmod +x gradlew
 after_success:
