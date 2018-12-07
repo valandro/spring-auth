@@ -1,6 +1,5 @@
 package com.valandro.contract;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valandro.contract.binder.AuthContractBinder;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
@@ -26,7 +25,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 
@@ -49,7 +47,7 @@ public class AuthControllerTest {
         webTestClient = WebTestClient.bindToApplicationContext(applicationContext).build();
     }
 
-
+    @Ignore
     @Test
     public void authenticate_success() {
         AuthRequest request = ContractStub.getValidRequest();
@@ -87,7 +85,7 @@ public class AuthControllerTest {
                 .jsonPath("$.access_level").isEqualTo(response.getAccessLevel());
     }
 
-
+    @Ignore
     @Test
     public void authenticate_not_found() {
         AuthRequest request = ContractStub.getValidRequest();
