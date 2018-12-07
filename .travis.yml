@@ -10,5 +10,5 @@ matrix:
 before_install:
 - chmod +x gradlew
 after_success:
-  - ./gradlew check codeCoverageReport
+  - ./gradlew codeCoverageReport
   - bash <(curl -s https://codecov.io/bash)
