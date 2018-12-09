@@ -1,5 +1,5 @@
 # Java Spring Data
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)
 [![codecov](https://codecov.io/gh/valandro/java-auth-spring/branch/master/graph/badge.svg)](https://codecov.io/gh/valandro/java-auth-spring)
 
