@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)](https://travis-ci.org/valandro/java-auth-spring.svg?branch=master)
 [![codecov](https://codecov.io/gh/valandro/java-auth-spring/branch/master/graph/badge.svg)](https://codecov.io/gh/valandro/java-auth-spring)
 
-This project consists in a Authentication Service, using Jwts for generate JSON Web Token.
+This project consists in an Authentication Service, using Jwts for generate JSON Web Tokens.
 
 
 ### Dependencies
