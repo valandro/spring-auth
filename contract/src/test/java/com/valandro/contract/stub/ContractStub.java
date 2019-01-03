@@ -1,5 +1,6 @@
 package com.valandro.contract.stub;
 
+import com.valandro.contract.AuthController;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.response.AuthResponse;
 import com.valandro.impl.data.UserEntity;
@@ -7,8 +8,15 @@ import com.valandro.impl.data.UserEntity;
 public class ContractStub {
     public static AuthRequest getValidRequest() {
         return AuthRequest.builder()
-                .password("Senha")
-                .username("Nome")
+                .username("Lucas")
+                .password("Lucas")
+                .build();
+    }
+
+    public static AuthRequest getInvalidRequest() {
+        return AuthRequest.builder()
+                .username("Test")
+                .password("Jose")
                 .build();
     }
 

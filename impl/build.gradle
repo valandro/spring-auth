@@ -5,9 +5,7 @@ dependencies {
     // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
     // Use MySQL Connector-J
-    compile 'com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8'
     compile group: 'mysql', name: 'mysql-connector-java'
-    compile 'org.hibernate:hibernate-entitymanager'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 }

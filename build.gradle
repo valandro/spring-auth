@@ -48,6 +48,7 @@ allprojects {
         compile('com.sun.xml.bind:jaxb-core:2.3.0')
         compile('com.sun.xml.bind:jaxb-impl:2.3.0')
         compile('javax.activation:activation:1.1.1')
+        compile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.12.0'
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 
