@@ -15,7 +15,8 @@ before_script:
 - apt-get update
 - apt-get install -y --no-install-recommends git openssh-client zip
 - eval $(ssh-agent -s)
-- echo "$SSH_PRIVATE_KEY"
+- ./gradlew --version
+- echo "$SSH_PRIVATE_KEY" | ssh-add -
 - mkdir -p ~/.ssh
 - chmod 700 ~/.ssh
 
@@ -23,7 +24,7 @@ build:
   stage: build
   script:
     - echo "Initiliaze build task..."
-    - ./gradlew clean build
+    - ./gradlew clean build --no-daemon.
     - echo "Finalized build task..."
   artifacts:
     paths:
