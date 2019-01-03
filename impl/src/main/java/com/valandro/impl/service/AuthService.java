@@ -11,6 +11,7 @@ import com.valandro.impl.model.AuthModel;
 import com.valandro.impl.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,15 @@ public class AuthService {
         }
     }
 
+    public Optional<UserEntity> findUserByNameAndPassword(ImplRequest request) {
+        return Optional.ofNullable(
+                this.userRepository
+                        .findByNameAndPassword(request.getUsername(),
+                                               hashPassword(request.getPassword()))
+        );
+    }
+
+
     private String createToken(ImplModel authModel) throws JsonProcessingException {
         Date expiration = Date.from(ZonedDateTime.now(ZoneOffset.UTC).plusHours(this.sessionTime).toInstant());
         return Jwts.builder()
@@ -53,10 +63,7 @@ public class AuthService {
                    .compact();
     }
 
-    public Optional<UserEntity> findUserByNameAndPassword(ImplRequest request) {
-        return Optional.ofNullable(
-                this.userRepository
-                        .findByNameAndPassword(request.getUsername(),request.getPassword()));
-
+    public String hashPassword(String password) {
+        return DigestUtils.sha256Hex(password);
     }
 }

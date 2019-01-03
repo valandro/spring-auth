@@ -45,7 +45,6 @@ public class AuthControllerTest {
         webTestClient = WebTestClient.bindToApplicationContext(applicationContext).build();
     }
 
-    @Ignore
     @Test
     public void authenticate_success() {
         AuthRequest request = ContractStub.getValidRequest();
@@ -83,7 +82,6 @@ public class AuthControllerTest {
                 .jsonPath("$.access_level").isEqualTo(response.getAccessLevel());
     }
 
-    @Ignore
     @Test
     public void authenticate_not_found() {
         AuthRequest request = ContractStub.getValidRequest();

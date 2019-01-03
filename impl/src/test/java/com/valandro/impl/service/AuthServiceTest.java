@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
+import org.mockito.exceptions.misusing.UnfinishedStubbingException;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -67,13 +68,16 @@ public class AuthServiceTest {
     }
 
     @Test
-    public void find_user_by_name_and_password_return_entity() {
+    public void find_user_by_name_and_password_return_entity() throws UnfinishedStubbingException {
         UserEntity entity = ImplStub.validEntity();
         ImplRequest request = ImplStub.validImplRequest();
 
+        String sha256Password = authService.hashPassword(request.getPassword());
+
         doReturn(entity)
                 .when(this.userRepository)
-                .findByNameAndPassword(eq(request.getUsername()),eq(request.getPassword()));
+                .findByNameAndPassword(eq(request.getUsername()),
+                                       eq(sha256Password));
 
         Optional<UserEntity> result = this.authService.findUserByNameAndPassword(request);
 
@@ -91,9 +95,12 @@ public class AuthServiceTest {
         UserEntity entity = ImplStub.notFoundEntity();
         ImplRequest request = ImplStub.validImplRequest();
 
+        String sha256Password = authService.hashPassword(request.getPassword());
+
         doReturn(entity)
                 .when(this.userRepository)
-                .findByNameAndPassword(eq(request.getUsername()),eq(request.getPassword()));
+                .findByNameAndPassword(eq(request.getUsername()),
+                                       eq(sha256Password));
 
         Optional<UserEntity> result = this.authService.findUserByNameAndPassword(request);
 

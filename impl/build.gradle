@@ -9,4 +9,5 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java'
     compile 'org.hibernate:hibernate-entitymanager'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 }
