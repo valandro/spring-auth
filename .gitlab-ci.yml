@@ -12,10 +12,9 @@ variables:
   APP_PORT: '8090'
 
 before_script:
-- apt-get update
-- apt-get install -y --no-install-recommends git openssh-client zip
+- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
 - eval $(ssh-agent -s)
-- ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+- echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 - mkdir -p ~/.ssh
 - chmod 700 ~/.ssh
 - ./gradlew clean build
