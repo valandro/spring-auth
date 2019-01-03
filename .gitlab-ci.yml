@@ -15,7 +15,7 @@ before_script:
 - apt-get update
 - apt-get install -y --no-install-recommends git openssh-client zip
 - eval $(ssh-agent -s)
-- echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
+- ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
 - mkdir -p ~/.ssh
 - chmod 700 ~/.ssh
 - ./gradlew clean build
