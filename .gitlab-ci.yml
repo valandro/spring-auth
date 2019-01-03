@@ -14,11 +14,11 @@ variables:
 before_script:
 - apt-get update
 - apt-get install -y --no-install-recommends git openssh-client zip
-- eval $(ssh-agent -s)
 - ./gradlew --version
-- echo "$SSH_PRIVATE_KEY" | ssh-add -
-- mkdir -p ~/.ssh
-- chmod 700 ~/.ssh
+- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+- chmod 700 ~/.ssh/id_rsa
+- eval "$(ssh-agent -s)"
+- ssh-add ~/.ssh/id_rsa
 
 build:
   stage: build
