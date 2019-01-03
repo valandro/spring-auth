@@ -4,7 +4,7 @@ stages:
   - prod
 
 build:
-  stage: : build
+  stage: build
   script:
     - echo "Building"
     - mkdir build
