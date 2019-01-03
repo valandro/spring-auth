@@ -1,17 +1,34 @@
+image: openjdk:10.0.1-slim
+
 stages:
   - build
   - test
   - prod
 
+variables:
+  SERVICE_NAME: 'java-auth-spring'
+  DEPLOY_PATH: '/home/projects/'
+  SERVICE_DIST_FILE_PATH: 'build/libs/*.jar'
+  APP_PORT: '8090'
+
+before_script:
+- apt-get update
+- apt-get install -y --no-install-recommends git openssh-client zip
+- eval $(ssh-agent -s)
+- echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
+- mkdir -p ~/.ssh
+- chmod 700 ~/.ssh
+
 build:
   stage: build
   script:
-    - echo "Building"
-    - mkdir build
-    - touch build/info.txt
+    - echo "Initiliaze build task..."
+    - ./gradlew clean build
+    - echo "Finalized build task..."
   artifacts:
     paths:
       - build/
+
 test:
   stage: test
   script:
