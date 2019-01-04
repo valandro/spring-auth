@@ -8,7 +8,7 @@ stages:
 variables:
   SERVICE_NAME: 'java-auth-spring'
   DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
-  SERVICE_DIST_FILE_PATH: 'dist/$SERVICE_NAME'
+  SERVICE_DIST_FILE_PATH: 'build/libs/*.jar'
 
 before_script:
   - echo "Before script..."
@@ -27,8 +27,7 @@ build:
   - ./gradlew clean build
   - echo "Finalized build task..."
   artifacts:
-    paths:
-    - build/libs/*.jar
+    untracked: true
   tags:
     - build
 
