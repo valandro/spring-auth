@@ -23,7 +23,7 @@ build:
   stage: build
   script:
     - echo "Initiliaze build task..."
-    - ./gradlew clean build --no-daemon.
+    - ./gradlew clean build --no-daemon
     - echo "Finalized build task..."
   artifacts:
     paths:
