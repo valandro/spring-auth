@@ -28,7 +28,8 @@ build:
     - ./gradlew clean build
     - echo "Finalized build task..."
   artifacts:
-    untracked: true
+    paths:
+    - build/
 test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
