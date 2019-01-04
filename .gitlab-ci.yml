@@ -13,7 +13,7 @@ variables:
 before_script:
   - echo "Before script..."
   - echo "$SSH_PRIVATE_KEY"
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - 'which ssh-agent || ( apt-get update -y && apt-get install git openssh-client -y )'
   - apt-get -y install zip unzip
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
