@@ -25,8 +25,7 @@ build:
   script:
     - echo "Initiliaze build task..."
     - ./gradlew clean build
-    - ls
     - echo "Finalized build task..."
   artifacts:
     paths:
-      - target/*.jar
+      - build/
