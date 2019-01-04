@@ -7,7 +7,7 @@ stages:
 
 variables:
   SERVICE_NAME: 'java-auth-spring'
-  DEPLOY_PATH: '/root/services/$SERVICE_NAME'
+  DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
   SERVICE_DIST_FILE_PATH: 'dist/$SERVICE_NAME'
 
 before_script:
@@ -22,24 +22,23 @@ before_script:
 
 build:
   stage: build
-  artifacts:
-    untracked: true
   script:
   - echo "Initiliaze build task..."
   - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/valandro/java-auth-spring.git
   - cd ./java-auth-spring
   - ./gradlew clean build
   - echo "Finalized build task..."
+  artifacts:
+    untracked: true
   tags:
     - build
 
 test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
-    DEPLOY_PATH: '/root/services/$SERVICE_NAME'
+    DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
     DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
-    SPRING_ACTIVE_PROFILE: 'prod'
   stage: test
   dependencies:
   - build
