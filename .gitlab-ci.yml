@@ -7,9 +7,8 @@ stages:
 
 variables:
   SERVICE_NAME: 'java-auth-spring'
-  DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
+  DEPLOY_PATH: '/root/services/$SERVICE_NAME'
   SERVICE_DIST_FILE_PATH: 'dist/$SERVICE_NAME'
-  APP_PORT: '8090'
 
 before_script:
   - echo "Before script..."
@@ -35,8 +34,10 @@ build:
 test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
-    DIST_FILE: '$SERVICE_NAME-distribution.zip'
+    DEPLOY_PATH: '/root/services/$SERVICE_NAME'
+    DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
+    SPRING_ACTIVE_PROFILE: 'prod'
   stage: test
   dependencies:
   - build
@@ -44,11 +45,12 @@ test:
   - ssh -o StrictHostKeyChecking=no $DEPLOY_HOST 'exit'
   - ssh $DEPLOY_HOST "rm -rf $DEPLOY_PATH/*"
   - ssh $DEPLOY_HOST "mkdir -p $DEPLOY_PATH/"
-  - ssh $DEPLOY_HOST "mkdir -p $SERVICE_DIST_FILE_PATH/"/
+  - ssh $DEPLOY_HOST "mkdir -p $SERVICE_DIST_FILE_PATH/"
   - zip -r $DIST_FILE Dockerfile docker-compose.yml $SERVICE_DIST_FILE_PATH/
   - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
   - ssh $DEPLOY_HOST "unzip $DEPLOY_PATH/$DIST_FILE -d $DEPLOY_PATH/"
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
-  - ssh $DEPLOY_HOST "docker system prune -f"
+  - echo $DEPLOY_HOST
+  - ssh -p 22 $DEPLOY_HOST "docker system prune -f"
   - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker-compose down && docker-compose up -d --build"
-  - echo "Deploy test finished"
+  - echo "Deploy prod finished"
