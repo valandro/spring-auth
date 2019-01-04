@@ -11,19 +11,20 @@ variables:
   SERVICE_DIST_FILE_PATH: 'build/libs/*.jar'
   APP_PORT: '8090'
 
-#before_script:
-#- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#- eval $(ssh-agent -s)
-#- echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-#- mkdir -p ~/.ssh
-#- chmod 700 ~/.ssh
-#- ./gradlew clean build
+before_script:
+  - echo "Before script..."
+  - echo "$SSH_PRIVATE_KEY"
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
 
 build:
   stage: build
   script:
     - echo "Initiliaze build task..."
-    - ./gradlew clean build --no-daemon
+    - ./gradlew clean build
     - echo "Finalized build task..."
   artifacts:
     paths:
