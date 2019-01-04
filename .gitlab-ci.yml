@@ -28,7 +28,7 @@ build:
   - echo "Finalized build task..."
   artifacts:
     paths:
-    - target/*.jar
+    - build/libs/*.jar
   tags:
     - build
 
