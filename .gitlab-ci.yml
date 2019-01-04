@@ -29,6 +29,9 @@ build:
     - echo "Finalized build task..."
   artifacts:
     untracked: true
+  tags:
+    - build
+
 test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
@@ -41,12 +44,11 @@ test:
   - ssh -o StrictHostKeyChecking=no $DEPLOY_HOST 'exit'
   - ssh $DEPLOY_HOST "rm -rf $DEPLOY_PATH/*"
   - ssh $DEPLOY_HOST "mkdir -p $DEPLOY_PATH/"
+  - ssh $DEPLOY_HOST "mkdir -p $SERVICE_DIST_FILE_PATH/"/
   - zip -r $DIST_FILE Dockerfile docker-compose.yml $SERVICE_DIST_FILE_PATH/
   - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
   - ssh $DEPLOY_HOST "unzip $DEPLOY_PATH/$DIST_FILE -d $DEPLOY_PATH/"
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
   - ssh $DEPLOY_HOST "docker system prune -f"
-  - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
   - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker-compose down && docker-compose up -d --build"
-
   - echo "Deploy test finished"
