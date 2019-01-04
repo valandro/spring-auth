@@ -22,12 +22,14 @@ before_script:
 
 build:
   stage: build
-  script:
-    - echo "Initiliaze build task..."
-    - ./gradlew clean build
-    - echo "Finalized build task..."
   artifacts:
     untracked: true
+  script:
+  - echo "Initiliaze build task..."
+  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/valandro/java-auth-spring.git
+  - cd ./java-auth-spring
+  - ./gradlew clean build
+  - echo "Finalized build task..."
   tags:
     - build
 
