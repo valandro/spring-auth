@@ -7,7 +7,7 @@ USER root
 RUN apt-get install -y bash tzdata
 
 RUN mkdir -p /user/src/app/
-COPY dist/eureka /user/src/app
+COPY dist/java-auth-spring /user/src/app
 WORKDIR /user/src/app
 
 RUN export JAVA_OPTS="-server -Xmx512m -Xms512m";
