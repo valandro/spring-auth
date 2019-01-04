@@ -13,7 +13,7 @@ variables:
 before_script:
   - echo "Before script..."
   - echo "$SSH_PRIVATE_KEY"
-  - 'which ssh-agent || ( apt-get update -y && apt-get install git openssh-client -y )'
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - apt-get -y install zip unzip
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
@@ -24,8 +24,6 @@ build:
   stage: build
   script:
   - echo "Initiliaze build task..."
-  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/valandro/java-auth-spring.git
-  - cd ./java-auth-spring
   - ./gradlew clean build
   - echo "Finalized build task..."
   artifacts:
@@ -46,13 +44,11 @@ test:
   - ssh -o StrictHostKeyChecking=no $DEPLOY_HOST 'exit'
   - ssh $DEPLOY_HOST "rm -rf $DEPLOY_PATH/*"
   - ssh $DEPLOY_HOST "mkdir -p $DEPLOY_PATH/"
-  - ssh $DEPLOY_HOST "mkdir -p $SERVICE_DIST_FILE_PATH/"
-  - zip -r $DIST_FILE Dockerfile docker-compose.yml $SERVICE_DIST_FILE_PATH/
+  - zip -r $DIST_FILE Dockerfile $SERVICE_DIST_FILE_PATH
   - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
   - ssh $DEPLOY_HOST "unzip $DEPLOY_PATH/$DIST_FILE -d $DEPLOY_PATH/"
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
-  - echo $DEPLOY_HOST
   - ssh $DEPLOY_HOST "docker system prune -f"
-  - ssh $DEPLOY_HOST "cd $SERVICE_DIST_FILE_PATH/ && ls"
-  - ssh $DEPLOY_HOST "cd $SERVICE_DIST_FILE_PATH/ && docker-compose down && docker-compose up -d --build"
+  - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
+  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run --name $SERVICE_NAME -d $DOCKER_IMAGE_NAME"
   - echo "Deploy prod finished"
