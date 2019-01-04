@@ -46,6 +46,7 @@ test:
   - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
   - ssh $DEPLOY_HOST "docker system prune -f"
+  - ssh $DEPLOY_HOST "ls"
   - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/"
   - ssh $DEPLOY_HOST "ls"
   - ssh $DEPLOY_HOST "docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
