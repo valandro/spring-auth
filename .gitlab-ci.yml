@@ -48,6 +48,6 @@ test:
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
   - ssh $DEPLOY_HOST "docker system prune -f"
   - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
-  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run -e APP_PORT=$APP_PORT --name $SERVICE_NAME -d -p $APP_PORT:$APP_PORT --restart always $DOCKER_IMAGE_NAME"
+  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run --name $SERVICE_NAME -d $DOCKER_IMAGE_NAME"
 
   - echo "Deploy test finished"
