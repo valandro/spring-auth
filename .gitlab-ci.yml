@@ -38,6 +38,8 @@ deploy_test:
     DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
   stage: deploy_test
+  tags:
+    - deploy_test
   dependencies:
   - build
   script:
