@@ -2,8 +2,8 @@ image: openjdk:10.0.1-slim
 
 stages:
   - build
-  - test
-  - prod
+  - deploy_test
+  - deploy_prod
 
 variables:
   SERVICE_NAME: 'java-auth-spring'
@@ -31,13 +31,13 @@ build:
   tags:
     - build
 
-test:
+deploy_test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
     DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
     DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
-  stage: test
+  stage: deploy_test
   dependencies:
   - build
   script:

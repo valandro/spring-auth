@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApplicationTest.class, properties = {"spring.datasource.url=jdbc:mysql://68.183.143.62:3306/java_auth?verifyServerCertificate=false&useSSL=true",
+@SpringBootTest(classes = ApplicationTest.class, properties = {"spring.datasource.url=jdbc:mysql://159.203.67.88:3306/java_auth?verifyServerCertificate=false&useSSL=true",
         "spring.datasource.driver-class-name=com.mysql.jdbc.Driver","spring.datasource.username=root", "spring.datasource.password=Password.123#dificult"})
 public class AuthControllerTest extends WebFluxApplicationTests {
 
