@@ -1,9 +1,8 @@
 image: openjdk:10.0.1-slim
 
 stages:
-- build
-- test
-- prod
+  - build
+  - deploy_test
 
 variables:
   SERVICE_NAME: 'java-auth-spring'
@@ -11,14 +10,14 @@ variables:
   SERVICE_DIST_FILE_PATH: 'build/libs/*.jar'
 
 before_script:
-- echo "Before script..."
-- echo "$SSH_PRIVATE_KEY"
-- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-- apt-get -y install zip unzip
-- eval $(ssh-agent -s)
-- echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-- mkdir -p ~/.ssh
-- chmod 700 ~/.ssh
+  - echo "Before script..."
+  - echo "$SSH_PRIVATE_KEY"
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - apt-get -y install zip unzip
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
 
 build:
   stage: build
@@ -29,15 +28,17 @@ build:
   artifacts:
     untracked: true
   tags:
-  - build
+    - build
 
-test:
+deploy_test:
   variables:
     DEPLOY_HOST: 'root@68.183.143.62'
     DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
     DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
-  stage: test
+  stage: deploy_test
+  tags:
+    - deploy_test
   dependencies:
   - build
   script:
