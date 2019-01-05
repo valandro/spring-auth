@@ -32,7 +32,7 @@ build:
 
 deploy_test:
   variables:
-    DEPLOY_HOST: 'root@68.183.143.62'
+    DEPLOY_HOST: 'root@159.203.67.88'
     DEPLOY_PATH: '/home/projects/$SERVICE_NAME'
     DIST_FILE: '$SERVICE_NAME-distribution.jar'
     DOCKER_IMAGE_NAME: '$SERVICE_NAME/java'
