@@ -1,5 +1,4 @@
 apply plugin: 'jacoco'
-
 dependencies {
     compile project(':impl')
 }

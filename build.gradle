@@ -1,8 +1,7 @@
 plugins {
     id 'java'
-    id 'application'
     id 'jacoco'
-    id 'org.springframework.boot' version '2.0.5.RELEASE'
+    id 'org.springframework.boot' version '2.0.3.RELEASE'
 }
 
 dependencies {
@@ -12,12 +11,10 @@ dependencies {
 allprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
-    apply plugin: 'application'
     apply plugin: 'io.spring.dependency-management'
 
     group 'com.valandro'
     version '1.0'
-    mainClassName = 'com.springdatajpa.sprindatajpa'
 
     ext {
         jacocoVersion = '0.7.5.201505241946'
@@ -43,7 +40,7 @@ allprojects {
 
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-webflux")
-        compileOnly("org.projectlombok:lombok:1.18.0")
+        compileOnly("org.projectlombok:lombok:1.18.2")
         compile('javax.xml.bind:jaxb-api:2.3.0')
         compile('com.sun.xml.bind:jaxb-core:2.3.0')
         compile('com.sun.xml.bind:jaxb-impl:2.3.0')
@@ -72,6 +69,7 @@ task codeCoverageReport(type: JacocoReport) {
         html.destination "${buildDir}/reports/jacoco/html"
         csv.enabled false
     }
+
 }
 
 codeCoverageReport.dependsOn {
