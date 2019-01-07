@@ -51,5 +51,5 @@ deploy_test:
   - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
   - ssh $DEPLOY_HOST "docker system prune -f"
   - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
-  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run --name -e APP_PORT=$APP_PORT -p $APP_PORT:$APP_PORT  $SERVICE_NAME -d $DOCKER_IMAGE_NAME"
+  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run -e APP_PORT=$APP_PORT -p $APP_PORT:$APP_PORT --name $SERVICE_NAME -d $DOCKER_IMAGE_NAME"
   - echo "Deploy prod finished"
