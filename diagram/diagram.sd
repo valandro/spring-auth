@@ -1,0 +1,16 @@
+#![Java Auth]
+ext:External[pe]
+user:Actor
+browser:Browser
+service:AuthService
+db:UserRepository
+
+ext:authentication action!
+user:browser.click()
+browser:service.login(username,password)
+service:hashPassword()
+service:db.findByNameAndPassword(username,password)
+service:Optional<UserEntity>
+browser:return AuthResponse
+browser:user.Here is your token! 
+user:

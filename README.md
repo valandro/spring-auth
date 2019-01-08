@@ -13,6 +13,10 @@ This project consists in an Authentication Service, using Jwts for generate JSON
 ### Usage
 TO DO
 
+### Sequence Diagram
+
+![Diagram](/diagram/diagram.png)
+
 ### Data model
 The database used in this project has the following structure:
 
