@@ -3,6 +3,6 @@ version: '3'
 services:
   app:
     build: .
-    working_dir: /user/src/app
+    working_dir: /home/projects/
     ports:
     - 8090:8090
