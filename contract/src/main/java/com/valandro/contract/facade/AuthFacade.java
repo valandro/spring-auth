@@ -30,7 +30,7 @@ public class AuthFacade {
     private UserEntity findUserByNameAndPassword(ImplRequest request) {
         return this.authService.findUserByNameAndPassword(request)
                 .orElseThrow(() -> {
-                    throw new ApiException(HttpStatus.BAD_REQUEST, "Usuário não encontrado.");
+                    throw new ApiException(HttpStatus.NOT_FOUND, "Usuário não encontrado.");
                 });
     }
 }

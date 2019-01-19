@@ -47,9 +47,9 @@ public class AuthControllerTest extends WebFluxApplicationTests {
                 .syncBody(request)
                 .exchange()
                 .expectStatus()
-                .isBadRequest()
+                .isNotFound()
                 .expectBody()
-                .jsonPath("$.httpStatus").isEqualTo(HttpStatus.BAD_REQUEST.value())
+                .jsonPath("$.httpStatus").isEqualTo(HttpStatus.NOT_FOUND.value())
                 .jsonPath("$.message").isEqualTo("Usuário não encontrado.");
     }
 }

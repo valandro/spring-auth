@@ -11,7 +11,39 @@ Continuous integration status:
 This project consists in an Authentication Service, using Jwts for generate JSON Web Tokens.
 
 ### Usage
-TO DO
+
+For consumes the API it's simple:
+
+**POST** /auth
+
+REQUEST BODY
+```json
+{
+    "username": "some-user",
+    "password": "some-pass"
+}
+```
+
+If your credentials are correct
+
+RESPONSE BODY
+```json
+{  
+   "token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJjbGllbnRJZFwiOjEsXCJhY2Nlc",
+   "user_name":"Lucas",
+   "access_level":1
+}
+```
+
+And if is not
+
+```json
+{
+    "httpStatus":404,
+    "message":"Usuário não encontrado."
+}
+```
+
 
 ### Sequence Diagram
 
