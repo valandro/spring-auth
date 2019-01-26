@@ -1,4 +1,4 @@
-rootProject.name = 'springdatajpa'
+rootProject.name = 'spring-auth'
 include 'contract'
 include 'impl'
 

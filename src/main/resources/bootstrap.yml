@@ -1,0 +1,15 @@
+---
+spring:
+  application:
+    name: spring-auth
+  profiles:
+    active: dev
+
+---
+spring:
+  application:
+    name: spring-auth
+  profiles: dev
+  cloud:
+    config:
+      uri: http://159.203.67.88:9028/config-server

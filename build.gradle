@@ -14,7 +14,7 @@ allprojects {
     apply plugin: 'io.spring.dependency-management'
 
     group 'com.valandro'
-    version '1.0'
+    version '1.0.0'
 
     ext {
         jacocoVersion = '0.7.5.201505241946'
@@ -35,11 +35,13 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom 'org.springframework.cloud:spring-cloud-sleuth:2.0.0.RELEASE'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE'
         }
     }
 
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-webflux")
+        compile("org.springframework.cloud:spring-cloud-starter-config")
         compileOnly("org.projectlombok:lombok:1.18.2")
         compile('javax.xml.bind:jaxb-api:2.3.0')
         compile('com.sun.xml.bind:jaxb-core:2.3.0')
