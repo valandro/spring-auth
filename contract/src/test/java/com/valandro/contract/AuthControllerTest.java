@@ -1,5 +1,7 @@
 package com.valandro.contract;
 
+import com.valandro.ApplicationTest;
+import com.valandro.WebFluxApplicationTests;
 import com.valandro.contract.request.AuthRequest;
 import com.valandro.contract.stub.ContractStub;
 import org.junit.Before;
@@ -18,15 +20,18 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @Sql(value = "/clean-database.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class AuthControllerTest extends WebFluxApplicationTests {
 
+    private WebTestClient webTestClient;
+
     @Before
     public void setUp() {
-        super.webTestClient = WebTestClient.bindToApplicationContext(applicationContext).build();
+        this.webTestClient = WebTestClient.bindToApplicationContext(applicationContext).build();
     }
+
     @Test
     public void authenticate_success() {
         AuthRequest request = ContractStub.getValidRequest();
 
-        super.webTestClient
+        this.webTestClient
                 .post()
                 .uri("/auth")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +47,7 @@ public class AuthControllerTest extends WebFluxApplicationTests {
     public void authenticate_not_found() {
         AuthRequest request = ContractStub.getInvalidRequest();
 
-        super.webTestClient
+        this.webTestClient
                 .post()
                 .uri("/auth")
                 .contentType(MediaType.APPLICATION_JSON)

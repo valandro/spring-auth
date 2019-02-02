@@ -1,9 +1,8 @@
-package com.valandro.contract;
+package com.valandro;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.web.reactive.server.WebTestClient;
 
 public class WebFluxApplicationTests {
 
@@ -12,6 +11,4 @@ public class WebFluxApplicationTests {
 
     @Autowired
     protected ObjectMapper objectMapper;
-
-    protected WebTestClient webTestClient;
 }
