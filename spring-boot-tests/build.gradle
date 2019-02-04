@@ -12,5 +12,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile("com.h2database:h2:1.4.197")
+    compile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.12.0'
 }
