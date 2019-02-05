@@ -44,7 +44,7 @@ Response - **Status 404 NOT FOUND**
 ### Sequence Diagram
 
 
-![Diagram](/diagram/diagram.png)
+![Diagram](/diagram/sequence-diagram.png)
 
 ### Data model
 The database used in this project has the following structure:

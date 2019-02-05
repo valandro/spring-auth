@@ -1,4 +1,4 @@
-package com.springdatajpa.springdatajpa;
+package com.valandro.springauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
